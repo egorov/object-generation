@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/egorov/object-generation#readme",
   "dependencies": {
-    "jasmine": "^3.5.0"
+    "jasmine": "^3.5.0",
+    "redux": "^4.0.5"
   }
 }
