@@ -1,0 +1,27 @@
+{
+  "name": "object-generation",
+  "version": "0.0.1",
+  "description": "Object generation tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "node node_modules/jasmine/bin/jasmine --config=jasmine.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egorov/object-generation.git"
+  },
+  "keywords": [
+    "object",
+    "generation",
+    "automation"
+  ],
+  "author": "Sergey Egorov <me@egorov.space> https://egorov.space",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/egorov/object-generation/issues"
+  },
+  "homepage": "https://github.com/egorov/object-generation#readme",
+  "dependencies": {
+    "jasmine": "^3.5.0"
+  }
+}
