@@ -1,10 +1,10 @@
 const generators = require('./generators');
 
-function object_generator(store) {  
-  
-  const metadata = get_metadata(store);
+function object_generator(metadata) {  
 
   const value_store = make_value_store();
+  
+  let value = null;
 
   for(const property in metadata) {
     
@@ -17,19 +17,18 @@ function object_generator(store) {
     
     const generate = generators[metadata[property].type];
 
+    if(typeof generate !== 'function')
+      continue;
+
     generate(value_store);
 
-    const value_action = make_value_action(property, value_store);
+    if(value === null)
+      value = {};
 
-    store.dispatch(value_action);
+    value[property] = value_store.getState().value;
   }
-}
 
-function get_metadata(store) {
-
-  const state = store.getState();
-
-  return state.metadata;
+  return value;
 }
 
 function make_value_store() {
@@ -42,18 +41,6 @@ function make_value_store() {
   store.dispatch({type, payload});
 
   return store;
-}
-
-function make_value_action(property, value_store) {
-
-  const action = {
-    type: 'value',
-    payload: {}
-  };
-
-  action.payload[property] = value_store.getState().value;
-
-  return action;
 }
 
 module.exports = object_generator;

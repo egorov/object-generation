@@ -1,6 +1,5 @@
 describe('object generator', () => {
 
-  const store = require('../src/object_factory_store').create();
   const generate = require('../src/object_generator');
 
   it('should generate an object', () => {
@@ -22,17 +21,9 @@ describe('object generator', () => {
         max: 99
       }
     };
-    const action = {
-      type: 'metadata',
-      payload: metadata
-    };
     
-    store.dispatch(action);
-    
-    generate(store);
-    
-    const value = store.getState().value;
-    
+    const value = generate(metadata);
+      
     expect(typeof value.first_name).toEqual('string');
     expect(value.first_name.length >= metadata.first_name.min_length).toBeTruthy();
     expect(value.first_name.length <= metadata.first_name.max_length).toBeTruthy();
@@ -45,5 +36,16 @@ describe('object generator', () => {
     expect(typeof value.age).toEqual('number');
     expect(value.age >= metadata.age.min).toBeTruthy();
     expect(value.age <= metadata.age.max).toBeTruthy();    
+  });
+
+  it('should return empty object for unknown metadata', () => {
+
+    const metadata = {
+      engbood: {
+        type: 'dilgboldl'
+      }
+    };
+
+    expect(generate(metadata)).toBeNull();
   });
 });
