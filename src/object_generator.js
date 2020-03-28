@@ -19,14 +19,7 @@ function object_generator(store) {
 
     generate(value_store);
 
-    const value = value_store.getState().value;
-    const payload = {};
-    payload[property] = value;
-
-    const value_action = {
-      type: 'value',
-      payload
-    };
+    const value_action = make_value_action(property, value_store);
 
     store.dispatch(value_action);
   }
@@ -49,6 +42,18 @@ function make_value_store() {
   store.dispatch({type, payload});
 
   return store;
+}
+
+function make_value_action(property, value_store) {
+
+  const action = {
+    type: 'value',
+    payload: {}
+  };
+
+  action.payload[property] = value_store.getState().value;
+
+  return action;
 }
 
 module.exports = object_generator;
