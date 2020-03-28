@@ -32,14 +32,23 @@ function get_number_factory(store) {
 
 function get_length(metadata, make_number) {
    
-  const settings = {
-    min: get_min_length(metadata),
-    max: get_max_length(metadata)
-  };
+  const settings = get_settings(metadata);
 
   const length = make_number(settings);
 
   return length;
+}
+
+function get_settings(metadata) {
+  
+  const min = get_min_length(metadata);
+  const m = get_max_length(metadata);
+  const max = m > min ? m : min * 2;
+
+  return {
+    min,
+    max
+  };
 }
 
 function get_min_length(metadata) {
