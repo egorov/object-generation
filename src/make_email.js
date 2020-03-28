@@ -3,7 +3,7 @@ const make_number = require('./make_number');
 const AT = '@';
 const settings = {
   min: 2,
-  max: 50
+  max: 25
 };
 
 function make_email(metadata) {
