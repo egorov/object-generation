@@ -36,6 +36,22 @@ expect(value.length >= settings.min).toBeTruthy();
 expect(value.length <= settings.max).toBeTruthy();
 ```  
 
+Адреса электронной почты:
+
+```javascript
+const make = require('object-generation').generators.email;
+const settings = {
+  domain: 'acme.local'
+};
+
+const value = make(settings);
+
+expect(typeof value).toEqual('string');
+expect(value.length >= settings.domain + 2).toBeTruthy();
+expect(value.includes('@')).toBeTruthy();
+expect(value.endsWith(settings.domain)).toBeTruthy();
+```
+
 ## Генератор объектов  
 
 ```javascript
