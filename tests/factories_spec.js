@@ -8,7 +8,8 @@ describe('factories', () => {
     number: require('../src/make_number'),
     password: require('../src/make_password'),
     phone: require('../src/make_phone'),
-    string: require('../src/make_string')
+    string: require('../src/make_string'),
+    url: require('../src/make_url')
   };
 
   it('should contain methods', () => {

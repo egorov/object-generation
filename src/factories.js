@@ -5,5 +5,6 @@ module.exports = {
   number: require('./make_number'),
   password: require('./make_password'),
   phone: require('./make_phone'),
-  string: require('./make_string')
+  string: require('./make_string'),
+  url: require('./make_url')
 };
