@@ -6,7 +6,11 @@ function make_phone(country) {
 
   const parts = [];
 
-  parts.push(get_random_country_code());
+  if(typeof country === 'string')
+    parts.push(get_country_code(country.toLowerCase()));
+  else
+    parts.push(get_random_country_code());
+
   parts.push(make_random_digit_string(3));
   parts.push(make_random_digit_string(3));
   parts.push(make_random_digit_string(4));
@@ -14,6 +18,14 @@ function make_phone(country) {
   const value = parts.join(' ');
 
   return value;
+}
+
+function get_country_code(key) {
+
+  if(country_codes_object.hasOwnProperty(key))
+    return `+${country_codes_object[key]}`;
+
+  throw new Error(`No code found for country ${key}!`);
 }
 
 function get_random_country_code() {
