@@ -5,6 +5,7 @@ describe('factories', () => {
     email: require('../src/make_email'),
     from_set: require('../src/choose_from_set'),
     number: require('../src/make_number'),
+    password: require('../src/make_password'),
     string: require('../src/make_string')
   };
 

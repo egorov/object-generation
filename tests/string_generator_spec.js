@@ -48,7 +48,7 @@ describe('string generator', () => {
     expect(value.length <= 9).toBeTruthy();
   });
 
-  it('should generate string with min length', () => {
+  it('should generate string with min and max length', () => {
 
     const action = {
       type: 'metadata',
@@ -66,6 +66,26 @@ describe('string generator', () => {
 
     expect(typeof value).toEqual('string');
     expect(value.length >= action.payload.min_length).toBeTruthy();
+    expect(value.length <= action.payload.max_length).toBeTruthy();
+  });
+
+  it('should generate string with max length', () => {
+
+    const action = {
+      type: 'metadata',
+      payload: {
+        type: 'string',
+        max_length: 7
+      }
+    };
+    store.dispatch(action);
+
+    generate(store);
+
+    const value = store.getState().value;
+
+    expect(typeof value).toEqual('string');
+    expect(value.length >= 2).toBeTruthy();
     expect(value.length <= action.payload.max_length).toBeTruthy();
   });
 

@@ -50,7 +50,7 @@ describe('number generator', () => {
     expect(value <= action.payload.min * 2).toBeTruthy();
   });
 
-  it('should generate max value', () => {
+  it('should generate min - max value', () => {
 
     const action = {
       type: 'metadata',
@@ -69,6 +69,27 @@ describe('number generator', () => {
 
     expect(typeof value).toEqual('number');
     expect(value >= action.payload.min).toBeTruthy();
+    expect(value <= action.payload.max).toBeTruthy();
+  });
+
+  it('should generate max value', () => {
+
+    const action = {
+      type: 'metadata',
+      payload: {
+        type: 'number',
+        max: 25
+      }
+    };
+    
+    store.dispatch(action);
+    
+    generate(store);
+
+    const value = store.getState().value;
+
+    expect(typeof value).toEqual('number');
+    expect(value >= 0).toBeTruthy();
     expect(value <= action.payload.max).toBeTruthy();
   });
 
