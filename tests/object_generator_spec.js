@@ -76,4 +76,39 @@ describe('object generator', () => {
     expect(value.email.indexOf('@') > 0).toBeTruthy();
     expect(value.email.endsWith(metadata.email.domain)).toBeTruthy();
   });
+
+  it('should generate an object', () => {
+
+    const metadata = {
+      user_name: {
+        type: 'string',
+        min_length: 2,
+        max_length: 9
+      },
+      email: {
+        type: 'email',
+        domain: 'insta.gram'
+      },
+      birth_date: {
+        type: 'date'        
+      }
+    };
+    
+    const value = generate(metadata);
+      
+    expect(typeof value.user_name).toEqual('string');
+    expect(value.user_name.length >= metadata.user_name.min_length).toBeTruthy();
+    expect(value.user_name.length <= metadata.user_name.max_length).toBeTruthy();
+        
+    expect(typeof value.email).toEqual('string');
+    expect(value.email.length >= 3).toBeTruthy();
+    expect(value.email.includes('@')).toBeTruthy();
+    expect(value.email.indexOf('@') < value.email.length - 1).toBeTruthy();
+    expect(value.email.indexOf('@') > 0).toBeTruthy();
+    expect(value.email.endsWith(metadata.email.domain)).toBeTruthy();
+
+    expect(value.birth_date instanceof Date).toBeTruthy();
+    expect(value.birth_date >= new Date(1900, 1, 1)).toBeTruthy();
+    expect(value.birth_date <= new Date(Date.now())).toBeTruthy();
+  });
 });
