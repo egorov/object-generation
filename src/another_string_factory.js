@@ -29,6 +29,8 @@ const consonants = [
   'z', 
   'w' 
 ];
+const DEFAULT_MIN_LENGTH = 3;
+const DEFAULT_MAX_LENGTH = 9;
 
 module.exports = function(metadata) {
   'use strict';
@@ -85,7 +87,9 @@ function get_length(metadata) {
 function get_settings(metadata) {
   
   const min = get_min_length(metadata);
+
   const m = get_max_length(metadata);
+  
   const max = m >= min ? m : min * 2;
 
   return {
@@ -96,16 +100,22 @@ function get_settings(metadata) {
 
 function get_min_length(metadata) {
 
-  if(typeof metadata.min_length === 'number')
-    return metadata.min_length;
+  if(typeof metadata !== 'object')
+    return DEFAULT_MIN_LENGTH;
+
+  if(typeof metadata.min_length !== 'number')
+    return DEFAULT_MIN_LENGTH;
   
-  return 3;
+  return metadata.min_length;
 }
 
 function get_max_length(metadata) {
 
-  if(typeof metadata.max_length === 'number')
-    return metadata.max_length;
+  if(typeof metadata !== 'object')
+    return DEFAULT_MAX_LENGTH;
 
-  return 9;
+  if(typeof metadata.min_length !== 'number')
+    return DEFAULT_MAX_LENGTH;
+  
+  return metadata.min_length;
 }
