@@ -1,6 +1,6 @@
 describe('make number', () => {
 
-  const generate = require('../src/make_number');
+  const make = require('../src/make_number');
   const integers = [
     { min: 3, max: 100 },
     { min: 87, max: 192 },
@@ -16,7 +16,7 @@ describe('make number', () => {
 
     integers.forEach((settings) => {
 
-      const value = generate(settings);
+      const value = make(settings);
       
       expect(settings.min >= value <= settings.max).toBeTruthy();
       expect(Number.isInteger(value)).toBeTruthy();
@@ -27,7 +27,7 @@ describe('make number', () => {
 
     fractions.forEach((settings) => {
 
-      const value = generate(settings);
+      const value = make(settings);
       
       expect(settings.min >= value <= settings.max).toBeTruthy();
       expect(Number.isInteger(value)).toBeFalsy();
@@ -36,68 +36,38 @@ describe('make number', () => {
     });
   });
 
-  it('should throw an error if min greater than max', () => {
+  it('should make min only value', () => {
 
-    const func = () => {
-
-      const settings = {
-        min: 99,
-        max: 1
-      };
-
-      generate(settings);
+    const metadata = {
+      min: 5
     };
 
-    expect(func).toThrow(new Error('settings.max must be greater than min!'));
+    const value = make(metadata);
+
+    expect(typeof value).toEqual('number');
+    expect(value >= metadata.min).toBeTruthy();
+    expect(value <= 1000).toBeTruthy();
   });
 
-  it('should throw an error if settings is not object', () => {
+  it('should make max only value', () => {
 
-    const func = () => {
-
-      generate(88);
+    const metadata = {
+      max: 15
     };
 
-    expect(func).toThrow(new TypeError('settings must be an object!'));
+    const value = make(metadata);
+
+    expect(typeof value).toEqual('number');
+    expect(value >= 0).toBeTruthy();
+    expect(value <= metadata.max).toBeTruthy();
   });
 
-  it('should throw an error if settings.min is undefined', () => {
+  it('should make value in default range', () => {
 
-    const func = () => {
+    const value = make();
 
-      generate({ max: 88});
-    };
-
-    expect(func).toThrow(new TypeError('settings.min must be a number!'));
-  });
-
-  it('should throw an error if settings.min is not number', () => {
-
-    const func = () => {
-
-      generate({ min: 'x', max: 88});
-    };
-
-    expect(func).toThrow(new TypeError('settings.min must be a number!'));
-  });
-
-  
-  it('should throw an error if settings.max is undefined', () => {
-    const func = () => {
-
-      generate({ min: 3 });
-    };
-
-    expect(func).toThrow(new TypeError('settings.max must be a number!'));
-  });
-
-  it('should throw an error if settings.max is not number', () => {
-
-    const func = () => {
-
-      generate({ min: 3, max: true });
-    };
-
-    expect(func).toThrow(new TypeError('settings.max must be a number!'));
+    expect(typeof value).toEqual('number');
+    expect(value >= 0).toBeTruthy();
+    expect(value <= 1000).toBeTruthy();
   });
 });

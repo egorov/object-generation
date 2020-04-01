@@ -26,7 +26,7 @@ describe('number generator', () => {
 
     expect(typeof value).toEqual('number');
     expect(value >= 0).toBeTruthy();
-    expect(value <= 10).toBeTruthy();
+    expect(value <= 1000).toBeTruthy();
   });
 
   it('should generate min value', () => {
@@ -47,7 +47,7 @@ describe('number generator', () => {
 
     expect(typeof value).toEqual('number');
     expect(value >= action.payload.min).toBeTruthy();
-    expect(value <= action.payload.min * 2).toBeTruthy();
+    expect(value <= 1000).toBeTruthy();
   });
 
   it('should generate min - max value', () => {
@@ -70,6 +70,28 @@ describe('number generator', () => {
     expect(typeof value).toEqual('number');
     expect(value >= action.payload.min).toBeTruthy();
     expect(value <= action.payload.max).toBeTruthy();
+  });
+
+  it('should use default max value', () => {
+
+    const action = {
+      type: 'metadata',
+      payload: {
+        type: 'number',
+        min: 25,
+        max: 5
+      }
+    };
+    
+    store.dispatch(action);
+    
+    generate(store);
+
+    const value = store.getState().value;
+
+    expect(typeof value).toEqual('number');
+    expect(value >= action.payload.min).toBeTruthy();
+    expect(value <= action.payload.min * 2).toBeTruthy();
   });
 
   it('should generate max value', () => {
@@ -111,7 +133,7 @@ describe('number generator', () => {
 
     expect(typeof value).toEqual('number');
     expect(value >= 0).toBeTruthy();
-    expect(value <= 10).toBeTruthy();
+    expect(value <= 1000).toBeTruthy();
   });
 
   it('should ignore unknown constraints', () => {
@@ -132,7 +154,7 @@ describe('number generator', () => {
 
     expect(typeof value).toEqual('number');
     expect(value >= 0).toBeTruthy();
-    expect(value <= 10).toBeTruthy();
+    expect(value <= 1000).toBeTruthy();
   });
 
   it('should ignore unknown value type', () => {

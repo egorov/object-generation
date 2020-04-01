@@ -1,28 +1,38 @@
-function make_number(settings) {
-  'use strict';
+const MIN = 0;
+const MAX = 1000;
 
-  validate(settings);
+function make_number(metadata) {
+  'use strict';
   
-  const min = settings.min;
-  const max = settings.max;
+  const min = get_min(metadata);
+
+  const m = get_max(metadata);
+  
+  const max = m >= min ? m : min * 2;
 
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-function validate(settings) {
-  'use strict';
+function get_min(metadata) {
 
-  if(typeof settings !== 'object')
-    throw new TypeError('settings must be an object!');
+  if(typeof metadata !== 'object')
+    return MIN;
 
-  if(typeof settings.min !== 'number')
-    throw new TypeError('settings.min must be a number!');
+  if(typeof metadata.min !== 'number')
+    return MIN;
+  
+  return metadata.min;
+}
 
-  if(typeof settings.max !== 'number')
-    throw new TypeError('settings.max must be a number!');
+function get_max(metadata) {
 
-  if(settings.min > settings.max)
-    throw new Error('settings.max must be greater than min!');
+  if(typeof metadata !== 'object')
+    return MAX;
+  
+  if(typeof metadata.max !== 'number')
+    return MAX;
+
+  return metadata.max;
 }
 
 module.exports = make_number;
