@@ -85,7 +85,7 @@ describe('string generator', () => {
     const value = store.getState().value;
 
     expect(typeof value).toEqual('string');
-    expect(value.length >= 2).toBeTruthy();
+    expect(value.length >= 3).toBeTruthy();
     expect(value.length <= action.payload.max_length).toBeTruthy();
   });
 

@@ -29,37 +29,29 @@ const consonants = [
   'z', 
   'w' 
 ];
+const DEFAULT_MIN_LENGTH = 3;
+const DEFAULT_MAX_LENGTH = 9;
 
-module.exports = function(length) {
+module.exports = function(metadata) {
   'use strict';
 
-  validate(length);
+  const length = get_length(metadata);
 
   let result = '';
 
   for(let index = 0; index < length; index += 1) {
     
     if(index % 2 === 0)
-      result += getConsonant();
+      result += get_consonant();
     else
-      result += getVowel();
+      result += get_vowel();
       
   } 
   
   return result;
 };
 
-function validate(length) {
-  'use strict';
-
-  if(length <= 0)
-    throw new Error('length must be positive integer!');
-
-  if(length > 100)
-    throw new Error('length must not exceed 100 characters!');
-}
-
-function getConsonant() {
+function get_consonant() {
   'use strict';
 
   const settings = {
@@ -71,7 +63,7 @@ function getConsonant() {
   return consonants[index];
 }
 
-function getVowel() {
+function get_vowel() {
   'use strict';
 
   const settings = {
@@ -81,4 +73,49 @@ function getVowel() {
   const index = make_number(settings);
 
   return vowels[index];
+}
+
+function get_length(metadata) {
+   
+  const settings = get_settings(metadata);
+
+  const length = make_number(settings);
+
+  return length;
+}
+
+function get_settings(metadata) {
+  
+  const min = get_min_length(metadata);
+
+  const m = get_max_length(metadata);
+  
+  const max = m >= min ? m : min * 2;
+
+  return {
+    min,
+    max
+  };
+}
+
+function get_min_length(metadata) {
+
+  if(typeof metadata !== 'object')
+    return DEFAULT_MIN_LENGTH;
+
+  if(typeof metadata.min_length !== 'number')
+    return DEFAULT_MIN_LENGTH;
+  
+  return metadata.min_length;
+}
+
+function get_max_length(metadata) {
+
+  if(typeof metadata !== 'object')
+    return DEFAULT_MAX_LENGTH;
+
+  if(typeof metadata.max_length !== 'number')
+    return DEFAULT_MAX_LENGTH;
+  
+  return metadata.min_length;
 }
