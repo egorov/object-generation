@@ -1,100 +1,43 @@
 # Инструменты генерации данных  
 
-Для использования в тестовой среде.
+Фабрика объектов, создаваемых на базе метаданных для использования в тестовой среде.  
 
-## Генераторы значений базовых типов
+```javascript  
 
-Числа:  
+const make = require('../src/object_factory');
 
-```javascript
-const make = require('object-generation').generators.make_number;
-
-const settings = {
-  min: -1,
-  max: 3
-};
-const value = make(settings);
-
-expect(typeof value).toEqual('number');
-expect(value >= settings.min).toBeTruthy();
-expect(value <= settings.max).toBeTruthy();
-```
-
-Строки:  
-
-```javascript
-const make = require('object-generation').generators.make_string;
-
-const settings = {
-  min_length: 2,
-  max_length: 5
-};
-const value = make(settings);
-
-expect(typeof value).toEqual('string');
-expect(value.length >= settings.min).toBeTruthy();
-expect(value.length <= settings.max).toBeTruthy();
-```  
-
-Адреса электронной почты:
-
-```javascript
-const make = require('object-generation').generators.email;
-const settings = {
-  domain: 'acme.local'
-};
-
-const value = make(settings);
-
-expect(typeof value).toEqual('string');
-expect(value.length >= settings.domain + 2).toBeTruthy();
-expect(value.includes('@')).toBeTruthy();
-expect(value.endsWith(settings.domain)).toBeTruthy();
-```
-
-## Генератор объектов  
-
-```javascript
-const store = require('object-generation').makeStore();
-const generate = require('object-generation').generate;
-
-const action = {
-  type: 'metadata',
-  payload: {
-    first_name: {
-      type: 'string',
-      min_length: 2,
-      max_length: 9
-    },
-    last_name: {
-      type: 'string',
-      min_length: 2,
-      max_length: 9
-    },
-    age: {
-      type: 'number',
-      min: 18,
-      max: 99
-    }
+const metadata = {
+  first_name: {
+    type: 'string',
+    min_length: 2,
+    max_length: 9
+  },
+  last_name: {
+    type: 'string',
+    min_length: 2,
+    max_length: 9
+  },
+  age: {
+    type: 'number',
+    min: 18,
+    max: 99
   }
 };
 
-store.dispatch(action);
-
-generate(store);
-
-const value = store.getState().value;
-
+const value = make(metadata);
+  
 expect(typeof value.first_name).toEqual('string');
-expect(value.first_name.length >= action.payload.first_name.min_length).toBeTruthy();
-expect(value.first_name.length <= action.payload.first_name.max_length).toBeTruthy();
+expect(value.first_name.length >= metadata.first_name.min_length).toBeTruthy();
+expect(value.first_name.length <= metadata.first_name.max_length).toBeTruthy();
 
 
 expect(typeof value.last_name).toEqual('string');
-expect(value.last_name.length >= action.payload.last_name.min_length).toBeTruthy();
-expect(value.last_name.length <= action.payload.last_name.max_length).toBeTruthy();
+expect(value.last_name.length >= metadata.last_name.min_length).toBeTruthy();
+expect(value.last_name.length <= metadata.last_name.max_length).toBeTruthy();
 
 expect(typeof value.age).toEqual('number');
-expect(value.age >= action.payload.age.min).toBeTruthy();
-expect(value.age <= action.payload.age.max).toBeTruthy();
+expect(value.age >= metadata.age.min).toBeTruthy();
+expect(value.age <= metadata.age.max).toBeTruthy();    
 ```
+
+Подробности, с описанием метаданных генерируемых значений в модульных тестах. В общем виде в файле [object_factory_spec.js](/tests/object_factory_spec.js). В деталях в файлах тестов фабрик конкретных типов данных.

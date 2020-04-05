@@ -1,6 +1,6 @@
 const factories = require('./factories');
 
-function object_generator(metadata) {  
+function object_factory(metadata) {  
  
   let value = null;
 
@@ -22,4 +22,4 @@ function object_generator(metadata) {
   return value;
 }
 
-module.exports = object_generator;
+module.exports = object_factory;
