@@ -117,5 +117,5 @@ function get_max_length(metadata) {
   if(typeof metadata.max_length !== 'number')
     return DEFAULT_MAX_LENGTH;
   
-  return metadata.min_length;
+  return metadata.max_length;
 }

@@ -91,6 +91,18 @@ describe('object generator', () => {
       },
       birth_date: {
         type: 'date'        
+      },
+      mobile: {
+        type: 'phone'
+      },
+      web_page: {
+        type: 'url'
+      },
+      password: {
+        type: 'password'
+      },
+      id: {
+        type: 'number'
       }
     };
     
@@ -110,5 +122,17 @@ describe('object generator', () => {
     expect(value.birth_date instanceof Date).toBeTruthy();
     expect(value.birth_date >= new Date(1900, 1, 1)).toBeTruthy();
     expect(value.birth_date <= new Date(Date.now())).toBeTruthy();
+
+    expect(typeof value.web_page).toEqual('string');
+    expect(value.web_page.length >= 10).toBeTruthy();
+    expect(value.web_page.startsWith('https://')).toBeTruthy();
+
+    expect(typeof value.mobile).toEqual('string');
+    expect(value.mobile.length >= 15).toBeTruthy();    
+    expect(value.mobile.startsWith('+')).toBeTruthy();
+
+    expect(typeof value.id).toEqual('number');
+    expect(value.id >= 0).toBeTruthy();    
+    expect(value.id <= 1000).toBeTruthy();
   });
 });
