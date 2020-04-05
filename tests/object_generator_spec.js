@@ -103,6 +103,13 @@ describe('object generator', () => {
       },
       id: {
         type: 'number'
+      },
+      gender: {
+        type: 'from_set',
+        from_set: [
+          'Male',
+          'Female'
+        ]
       }
     };
     
@@ -134,5 +141,8 @@ describe('object generator', () => {
     expect(typeof value.id).toEqual('number');
     expect(value.id >= 0).toBeTruthy();    
     expect(value.id <= 1000).toBeTruthy();
+
+    expect(typeof value.gender).toEqual('string');
+    expect(metadata.gender.from_set.includes(value.gender)).toBeTruthy();    
   });
 });
