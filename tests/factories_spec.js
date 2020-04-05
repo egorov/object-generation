@@ -4,7 +4,7 @@ describe('factories', () => {
   const expected = {
     date: require('../src/make_date'),
     email: require('../src/make_email'),
-    from_set: require('../src/choose_from_set'),
+    'from set of': require('../src/choose_from_set'),
     number: require('../src/make_number'),
     password: require('../src/make_password'),
     phone: require('../src/make_phone'),

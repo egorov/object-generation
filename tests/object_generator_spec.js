@@ -105,8 +105,8 @@ describe('object generator', () => {
         type: 'number'
       },
       gender: {
-        type: 'from_set',
-        from_set: [
+        type: 'from set of',
+        values: [
           'Male',
           'Female'
         ]
@@ -143,6 +143,6 @@ describe('object generator', () => {
     expect(value.id <= 1000).toBeTruthy();
 
     expect(typeof value.gender).toEqual('string');
-    expect(metadata.gender.from_set.includes(value.gender)).toBeTruthy();    
+    expect(metadata.gender.values.includes(value.gender)).toBeTruthy();    
   });
 });
