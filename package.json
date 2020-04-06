@@ -21,8 +21,7 @@
     "url": "https://github.com/egorov/object-generation/issues"
   },
   "homepage": "https://github.com/egorov/object-generation#readme",
-  "dependencies": {
-    "jasmine": "^3.5.0",
-    "redux": "^4.0.5"
+  "devDependencies": {
+    "jasmine": "^3.5.0"
   }
 }
