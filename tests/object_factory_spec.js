@@ -63,6 +63,10 @@ describe('object factory', () => {
     expect(value.mobile.length >= 15).toBeTruthy();    
     expect(value.mobile.startsWith('+')).toBeTruthy();
 
+    expect(typeof value.password).toEqual('string');
+    expect(value.password.length >= 8).toBeTruthy();    
+    expect(value.password.length <= 16).toBeTruthy();    
+
     expect(typeof value.id).toEqual('number');
     expect(value.id >= 0).toBeTruthy();    
     expect(value.id <= 1000).toBeTruthy();

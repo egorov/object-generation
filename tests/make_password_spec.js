@@ -1,47 +1,93 @@
 describe('make password', () => {
 
-  const make_number = require('../src/make_number');
   const make = require('../src/make_password');
   const values = [];
 
-  it('should return specified length password', () => {
-
-    const length = make_number({ min: 11, max: 18 });
+  it('should return default length password', () => {
 
     for(let i = 0; i < 100; i++) {
-      const value = make(length);
+      
+      const value = make();
 
-      expect(value.length).toEqual(length);
+      expect(value.length >= 8).toBeTruthy();
+      expect(value.length <= 16).toBeTruthy();
       expect(values.includes(value)).toBeFalsy();
 
       values.push(value);
     }
   });
 
-  it('should throw if length is negative', () => {
+  it('should return concrete length password', () => {
 
-    const method = () => {
-      make(-6);
+    const metadata = {
+      min_length: 8,
+      max_length: 8
     };
 
-    expect(method).toThrow(new Error('length must be positive integer!'));
+    for(let i = 0; i < 100; i++) {
+      
+      const value = make(metadata);
+
+      expect(value.length).toEqual(metadata.min_length);
+      expect(value.length).toEqual(metadata.max_length);
+      expect(values.includes(value)).toBeFalsy();
+
+      values.push(value);
+    }
   });
 
-  it('should throw if length is zero', () => {
+  it('should return password with minimal length', () => {
 
-    const method = () => {
-      make(0);
+    const metadata = {
+      min_length: 8
     };
 
-    expect(method).toThrow(new Error('length must be positive integer!'));
+    for(let i = 0; i < 100; i++) {
+      
+      const value = make(metadata);
+
+      expect(value.length >= metadata.min_length).toBeTruthy();
+      expect(value.length <= 16).toBeTruthy();
+      expect(values.includes(value)).toBeFalsy();
+
+      values.push(value);
+    }
   });
 
-  it('should throw if length greater than 100', () => {
+  it('should return password with maximal length', () => {
 
-    const method = () => {
-      make(101);
+    const metadata = {
+      max_length: 11
     };
 
-    expect(method).toThrow(new Error('length must not exceed 100 characters!'));
+    for(let i = 0; i < 100; i++) {
+      
+      const value = make(metadata);
+
+      expect(value.length >= 8).toBeTruthy();
+      expect(value.length <= metadata.max_length).toBeTruthy();
+      expect(values.includes(value)).toBeFalsy();
+
+      values.push(value);
+    }
+  });
+
+  it('should correct max length if smaller than min', () => {
+
+    const metadata = {
+      min_length: 13,
+      max_length: 11
+    };
+
+    for(let i = 0; i < 100; i++) {
+      
+      const value = make(metadata);
+
+      expect(value.length >= metadata.min_length).toBeTruthy();
+      expect(value.length <= metadata.min_length * 2).toBeTruthy();
+      expect(values.includes(value)).toBeFalsy();
+
+      values.push(value);
+    }
   });
 });
