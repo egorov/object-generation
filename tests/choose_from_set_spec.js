@@ -1,7 +1,7 @@
 describe('choose from set', () => {
 
   const choose = require('../src/choose_from_set');
-  const values = [
+  const from_set = [
     'Male',
     'Female',
     'Cat',
@@ -13,14 +13,14 @@ describe('choose from set', () => {
   it('should return random value from array', () => {
 
     const metadata = {
-      values
+      from_set
     };
 
     for(let index = 0; index < 10; index += 1) {
 
       const value = choose(metadata);
 
-      expect(metadata.values.includes(value)).toBeTruthy();
+      expect(metadata.from_set.includes(value)).toBeTruthy();
     }
   });
 
@@ -28,14 +28,14 @@ describe('choose from set', () => {
 
     const method = () => choose([]);
 
-    expect(method).toThrow(new Error('metadata.values must be an array!'));
+    expect(method).toThrow(new Error('metadata.from_set array is required!'));
   });
 
   it('should throw if values property is omitted', () => {
 
     const method = () => choose({});
 
-    expect(method).toThrow(new Error('metadata.values array is required!'));
+    expect(method).toThrow(new Error('metadata.from_set array is required!'));
   });
 
   it('should throw if metadata is null', () => {
@@ -47,18 +47,18 @@ describe('choose from set', () => {
     expect(method).toThrow(new Error('metadata must be an object!'));
   });  
 
-  it('should throw if values is not array', () => {
+  it('should throw if from_set is not array', () => {
 
     const methods = [
-      () => choose({values: 1}),
-      () => choose({values: 'values'}),
-      () => choose({values: {}}),
-      () => choose({values: true}),
-      () => choose({values: 89.99})
+      () => choose({from_set: 1}),
+      () => choose({from_set: 'values'}),
+      () => choose({from_set: {}}),
+      () => choose({from_set: true}),
+      () => choose({from_set: 89.99})
     ];
 
     methods.forEach((method) => {
-      expect(method).toThrow(new Error('metadata.values must be an array!'));
+      expect(method).toThrow(new Error('metadata.from_set must be an array!'));
     });
   });
 });

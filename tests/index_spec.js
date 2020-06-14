@@ -5,7 +5,7 @@ describe('module export tests', () => {
   const expected = {
     date: require('../src/make_date'),
     email: require('../src/make_email'),
-    'from set of': require('../src/choose_from_set'),
+    from_set: require('../src/choose_from_set'),
     number: require('../src/make_number'),
     password: require('../src/make_password'),
     phone: require('../src/make_phone'),
@@ -49,9 +49,8 @@ describe('module export tests', () => {
       id: {
         type: 'number'
       },
-      gender: {
-        type: 'from set of',
-        values: [
+      gender: {        
+        from_set: [
           'Male',
           'Female'
         ]
@@ -88,6 +87,6 @@ describe('module export tests', () => {
     expect(value.id <= 1000).toBeTruthy();
 
     expect(typeof value.gender).toEqual('string');
-    expect(metadata.gender.values.includes(value.gender)).toBeTruthy();    
+    expect(metadata.gender.from_set.includes(value.gender)).toBeTruthy();    
   });
 });

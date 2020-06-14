@@ -5,8 +5,8 @@ function object_factory(metadata) {
   let value = null;
 
   for(const property in metadata) {
-    
-    const make = factories[metadata[property].type];
+   
+    const make = getFactoryOf(metadata, property);
 
     if(typeof make !== 'function')
       continue;
@@ -20,6 +20,14 @@ function object_factory(metadata) {
   }
 
   return value;
+}
+
+function getFactoryOf(metadata, property) {
+
+  if(typeof metadata[property].from_set !== 'undefined')
+    return factories.from_set;
+
+  return factories[metadata[property].type];  
 }
 
 module.exports = object_factory;

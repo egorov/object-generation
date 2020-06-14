@@ -30,8 +30,7 @@ describe('object factory', () => {
         type: 'number'
       },
       gender: {
-        type: 'from set of',
-        values: [
+        from_set: [
           'Male',
           'Female'
         ]
@@ -72,7 +71,7 @@ describe('object factory', () => {
     expect(value.id <= 1000).toBeTruthy();
 
     expect(typeof value.gender).toEqual('string');
-    expect(metadata.gender.values.includes(value.gender)).toBeTruthy();    
+    expect(metadata.gender.from_set.includes(value.gender)).toBeTruthy();    
   });
   
   it('should make an object', () => {
@@ -111,7 +110,7 @@ describe('object factory', () => {
     expect(value.age <= metadata.age.max).toBeTruthy();    
   });
 
-  it('should return empty object for unknown metadata', () => {
+  it('should return null for unknown metadata', () => {
 
     const metadata = {
       engbood: {
