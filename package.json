@@ -1,6 +1,6 @@
 {
-  "name": "object-generation",
-  "version": "0.0.2",
+  "name": "@egorov/object-generation",
+  "version": "0.0.1",
   "description": "Object generation tools",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "automation"
   ],
   "author": "Sergey Egorov <me@egorov.space> https://egorov.space",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/egorov/object-generation/issues"
   },
