@@ -1,7 +1,7 @@
 {
-  "name": "@egorov/object-generation",
-  "version": "0.0.1",
-  "description": "Object generation tools",
+  "name": "object-generation",
+  "version": "0.0.3",
+  "description": "Values and object generation tools",
   "main": "index.js",
   "scripts": {
     "test": "node node_modules/jasmine/bin/jasmine --config=jasmine.json"
